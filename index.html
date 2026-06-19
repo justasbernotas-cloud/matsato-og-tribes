@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATSATO OG — Tribe Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#af7d50;
+    --bg-darker:#F4EFE6;
+    --bg-card:#FBF8F1;
+    --ink:#0A0A0A;
+    --ink-soft:#2A2A28;
+    --ink-mute:#6B6862;
+    --mute-onbg:#3A2A1C;
+    --accent:#C73E1D;
+    --accent-deep:#8E2A12;
+    --accent-onbg:#6B1F0D;
+    --forest:#2D3A2E;
+    --gold:#B0894F;
+    --rule:rgba(26,26,26,0.13);
+    --rule-onbg:rgba(10,10,10,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink-soft);
+    font-family:'Geist', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:72px 32px 120px;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;
+    padding-bottom:18px;border-bottom:1px solid var(--rule-onbg);
+    margin-bottom:64px;
+  }
+  .topbar span{
+    font-family:'Geist',sans-serif;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--mute-onbg);
+  }
+  .topbar .dot{color:var(--accent-onbg);margin-right:6px;}
+
+  h1.hero{
+    font-family:'Fraunces',serif;font-weight:700;font-style:normal;
+    font-size:64px;line-height:1.04;letter-spacing:-.01em;color:var(--ink);
+    margin:0 0 6px;
+  }
+  h1.hero em{
+    font-style:italic;font-weight:400;color:var(--accent-onbg);
+  }
+  .lede{
+    font-family:'Fraunces',serif;font-weight:400;font-size:21px;line-height:1.5;
+    color:var(--ink-soft);max-width:640px;margin:26px 0 18px;
+  }
+  .method-note{
+    font-family:'Geist',sans-serif;font-size:13.5px;line-height:1.6;color:var(--mute-onbg);
+    max-width:640px;margin:0 0 36px;
+  }
+  .arrows{color:var(--accent-onbg);font-size:18px;letter-spacing:6px;margin-bottom:56px;}
+
+  .legend{
+    display:flex;gap:28px;flex-wrap:wrap;
+    padding:20px 0 56px;border-bottom:1px solid var(--rule-onbg);margin-bottom:64px;
+  }
+  .legend-item{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute-onbg);}
+  .legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  .avatar-block{margin-bottom:88px;}
+  .avatar-block:last-child{margin-bottom:0;}
+  .avatar-tag{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+    font-size:15px;color:var(--accent-onbg);margin-bottom:10px;display:block;
+  }
+  h2.avatar-name{
+    font-family:'Fraunces',serif;font-weight:700;font-size:38px;
+    color:var(--ink);margin:0 0 14px;line-height:1.1;
+  }
+  .avatar-desc{
+    font-family:'Fraunces',serif;font-size:18px;line-height:1.55;color:var(--ink-soft);
+    max-width:680px;margin:0 0 44px;padding-left:20px;border-left:2px solid var(--rule-onbg);
+  }
+
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:36px 40px;
+    margin-bottom:28px;
+  }
+  .card-head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    gap:20px;margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--rule);
+  }
+  .card-head-left{display:flex;align-items:baseline;gap:14px;}
+  .tribe-num{font-family:'Geist',sans-serif;font-size:13px;color:var(--ink-mute);letter-spacing:.06em;}
+  h3.tribe-name{
+    font-family:'Fraunces',serif;font-weight:600;font-size:26px;color:var(--ink);margin:0;
+  }
+  .badge{
+    font-family:'Geist',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;padding:6px 14px;border-radius:100px;white-space:nowrap;
+  }
+  .badge-proven{background:var(--accent);color:#fff;}
+  .badge-high{background:var(--forest);color:#fff;}
+  .badge-moderate{background:var(--gold);color:#fff;}
+  .badge-speculative{background:transparent;color:var(--ink-mute);border:1px solid var(--ink-mute);}
+
+  .field{margin-bottom:24px;}
+  .field:last-child{margin-bottom:0;}
+  .field-label{
+    font-family:'Geist',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent-deep);margin-bottom:7px;
+  }
+  .field-value{
+    font-family:'Geist',sans-serif;font-size:15.5px;line-height:1.6;color:var(--ink-soft);
+  }
+
+  .quote-block{
+    font-family:'Fraunces',serif;font-style:italic;font-size:18px;line-height:1.5;
+    color:var(--ink);background:var(--bg-darker);border-left:3px solid var(--accent);
+    padding:16px 22px;border-radius:2px;
+  }
+
+  footer{
+    margin-top:80px;padding-top:24px;border-top:1px solid var(--rule-onbg);
+    font-size:12px;color:var(--mute-onbg);letter-spacing:.04em;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+
+  @media print{
+    body{background:#fff;}
+    .card{break-inside:avoid;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:48px 20px 80px;}
+    h1.hero{font-size:42px;}
+    .card{padding:28px 24px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span><span class="dot">●</span>MATSATO OG · TRIBE RESEARCH</span>
+    <span>FOR COLD, NON-RETARGETED CREATIVE BRIEFS</span>
+  </div>
+
+  <h1 class="hero">Six Real Tribes,<br><em>Zero Invented Quotes.</em></h1>
+  <p class="lede">Six tribes across two avatars, ranked by business impact. Each entry is self-contained — description, sentence test, cognitive heuristics, copy archetype, sophistication level, emotional triggers, and micro-moments — ready to go straight into a creative brief.</p>
+  <p class="method-note">Built only from real customer language on Amazon, Trustpilot, and ProductReview.com.au. The Reddit thread returned a blocked or restricted page on every fetch attempt and contributed no language here. No ad-performance data exists yet for MATSATO OG, so the tiers below reflect evidence strength inside the reviews themselves, not validated ad performance — read "Proven" as "most evidenced," not "ad-tested."</p>
+  <div class="arrows">→ → → → → →</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Proven</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--forest)"></span>High confidence, untested</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>Moderate confidence</div>
+    <div class="legend-item"><span class="legend-dot" style="background:transparent;border:1px solid var(--mute-onbg)"></span>Speculative</div>
+  </div>
+
+  <!-- AVATAR A -->
+  <div class="avatar-block">
+    <span class="avatar-tag">Avatar A</span>
+    <h2 class="avatar-name">The Self-Reliant Cook</h2>
+    <p class="avatar-desc">Buys for their own kitchen, their own hands, their own cooking life. The desire has nothing to do with impressing anyone else — it's about trust in a tool they themselves will pick up, over and over, for years.</p>
+
+    <!-- Tribe 1 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">01</span>
+          <h3 class="tribe-name">Prove-It-To-Me Skeptic</h3>
+        </div>
+        <span class="badge badge-proven">Proven</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">1 — Strongest signal of the six: this exact arc repeated independently across all three sources, in the longest, most specific writing collected.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Already has a drawer or block full of decent knives and has been burned by enough "as-seen-on-TV" gadgets to assume most knife ads are theater. Won't be sold by the ad itself — only by what happens the first time they use it against their own ingredients, compared to the knife they already trust. Once it survives that test, they don't just keep using it quietly — they tell people, unprompted, that they were wrong to doubt it.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"I've tried enough kitchen knives to know when one's finally not full of it."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Disarming Honesty — naming the knife's real limits first lowers this tribe's guard faster than another superlative claim. Doubt Avoidance — they've been burned by a gadget before, so a real, frictionless return policy removes the specific risk stopping them from trying again.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Skeptic — "I didn't think this would work. I was wrong." That's almost verbatim how this tribe already describes the moment they changed their mind.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 4 — Better Mechanism. They've already heard "Japanese steel" and "razor sharp" from every competitor; a more specific, harder-to-fake explanation beats the same loud claim repeated louder.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Pride in good judgment about tools. Quiet fear of being the sucker who fell for an ad. Relief at being proven right after holding out.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">Reaching for their "good" knife out of habit mid-recipe, then noticing this one's already in their hand. The first real cut on their own ingredient, not a demo tomato. Describing the knife, unprompted, to a friend who's just as skeptical of ads as they used to be.</div>
+      </div>
+    </div>
+
+    <!-- Tribe 2 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">02</span>
+          <h3 class="tribe-name">Everyday-Knife Loyalist</h3>
+        </div>
+        <span class="badge badge-high">High confidence</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">3 — Broad, consistent satisfaction signal across all three sources, including reviewers tracking months of daily use.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Cooks often enough that "which knife is actually in my hand right now" is a real daily decision, not a one-off. Has quiet favorites and quiet grudges among their existing knives, earned through use, not branding. Once something earns a permanent spot as the one they reach for without thinking, it stays there for years.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"This is the knife I actually reach for every day, not the one that just sits in the block looking nice."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Anchoring — showing how it performs against the "everyday" knife they currently default to reframes the purchase as an upgrade to an existing habit, not a leap of faith. Liking-Loving Tendency — this tribe forms something close to personal attachment to tools that work, and small unprompted gestures of warmth from the brand deepen that loyalty more than another performance claim would.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Curator — "I tested this against what I already use so you don't have to." A reviewer's voice fits a tribe that evaluates everything by daily, lived comparison.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 3 — New Mechanism. Every brand in this category claims to be "the sharpest"; what earns a second look is a specific, previously unheard reason their current go-to knife actually underperforms.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Satisfaction of mastery in a daily ritual. Quiet pride in having exactly the right tool. Low tolerance for friction in a task repeated constantly.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">The start of dinner prep, reaching for a knife on autopilot. Noticing an old favorite has finally dulled and feeling the small annoyance of needing a replacement. Recommending "my knife" by name to someone who asks what they're using.</div>
+      </div>
+    </div>
+
+    <!-- Tribe 3 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">03</span>
+          <h3 class="tribe-name">Won't-Quit Home Cook</h3>
+        </div>
+        <span class="badge badge-moderate">Moderate</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">6 — Smallest direct sample of the six, but specific and corroborated by a recurring theme in the wider review set.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Still wants to cook for themselves or their family the way they always have, but their hands don't fully cooperate anymore — arthritis, a wrist injury, or just age. Most of their current knives have stopped feeling like tools and started feeling like small risks. They're not shopping for "premium." They're shopping for permission to keep doing an ordinary task normally, without pain.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"My hands don't grip the way they used to, and most of my knives feel more dangerous than helpful now."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Loss Aversion — the real fear isn't wanting an easier knife, it's losing the ability to cook for their own family, and framing the product as preventing that loss lands harder than framing it as a gain. In-Group Bias — a creator who visibly shares the same hand or wrist limitation will be believed here far faster than a professional chef with perfect hands explaining the same feature.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Friend — peer-to-peer, "I'm just like you and this is what actually worked for me." This tribe trusts lived experience over expertise on this specific topic.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 2 — Bigger Claim. Most ergonomic-knife marketing stays vague ("comfort grip"); a plain, specific claim about real control and reduced strain is already ahead of the category.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Quiet fear of losing independence in the kitchen. Relief at being understood without over-explaining a limitation. Simple dignity in doing an ordinary task normally.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">Mid-chop, a wrist twinges and the knife gets set down before the task is finished. A harder-than-it-should-be night where cooking dinner took more out of them than expected. A family member gently noticing them struggle and asking if they want help.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVATAR B -->
+  <div class="avatar-block">
+    <span class="avatar-tag">Avatar B</span>
+    <h2 class="avatar-name">The Thoughtful Gift-Giver</h2>
+    <p class="avatar-desc">Buys for someone else's hands, not their own. The desire here is relevance and thoughtfulness — proof that they know this specific person well enough to get it right, not a reflection of their own cooking skill.</p>
+
+    <!-- Tribe 4 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">04</span>
+          <h3 class="tribe-name">Already-Has-Everything Gifter</h3>
+        </div>
+        <span class="badge badge-proven">Proven</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">2 — Tied for strongest signal: the single most repeated motif across all three sources, often inside the most emotionally detailed reviews collected.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Buying for one specific person they know well — a partner, a husband, a nephew, a son-in-law — who already has opinions about knives, already owns several, or has skills the buyer doesn't fully share. The fear isn't price, it's relevance: missing the mark on someone who'll say thanks politely and then never touch it. They're buying small proof that they paid attention to who this person actually is.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"He already has more knives than he needs, so it has to actually impress him or I'm wasting my money."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Doubt Avoidance — the core anxiety is picking wrong for someone else, so concrete reassurance — real reactions from people gifting to the same kind of hard-to-please recipient, an easy return — removes the exact doubt stopping the click. Curiosity Gap — a hook built around "the gift that surprised someone who already had everything" pulls this buyer in because it speaks directly to their fear of being unoriginal.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Storyteller — a short arc (skeptical recipient → reaction → genuine daily use) gives this buyer the reassurance of a real outcome, not just a list of features.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 3 — New Mechanism. Generic "great gift" claims are everywhere; what cuts through is a specific reason this stands out from the knives that person already owns.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Relief at finding something that feels personal instead of generic. Quiet pride in being the thoughtful one. Anticipation of the recipient's actual reaction.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">The dread when a gift occasion is approaching and they still have no idea what to get. Scrolling specifically for "gift for someone who already has everything" ideas. Replaying in their head how a past gift missed and not wanting to repeat that.</div>
+      </div>
+    </div>
+
+    <!-- Tribe 5 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">05</span>
+          <h3 class="tribe-name">Outdoorsman's Outfitter</h3>
+        </div>
+        <span class="badge badge-high">High confidence</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">4 — Strong, repeated signal, though concentrated more heavily in one source than the other two.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Buying for someone else entirely — a son, a husband, a hunting buddy — whose life runs through the outdoors: hunting trips, the tackle box, the BBQ station out back. This buyer rarely cooks much themselves and isn't judging the knife by kitchen standards. The bar isn't "is this a nice kitchen knife" — it's "will this actually hold up where he's really going to use it."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"He's going to use this in the field more than he'll ever use it in my kitchen, so it has to actually hold up out there."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Social Proof — this buyer isn't the end user and won't personally judge durability, so they lean on what other people who actually hunt or work outdoors say about it holding up. Excessive Self-Regard — gifting "real gear" reflects on the giver's own taste; they want to come across as someone who genuinely gets the outdoorsman in their life.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Underdog Founder — "built for people who actually use their hands outdoors." Mission-driven framing matches a buyer who wants the gift to feel authentic, not generic.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 2 — Bigger Claim. This audience hasn't been oversaturated with knife marketing the way home cooks have; a confident, bigger claim about toughness in real outdoor conditions is still novel enough to land on its own.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Pride in choosing a gift that actually fits who the recipient really is. Wanting to be seen as someone who "gets" them. Mild anxiety about picking something that ends up unused.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">Scrolling while picturing a specific upcoming trip the recipient has already talked about. Standing in a gift aisle that has nothing outdoorsy enough in it. The moment after gifting when the recipient actually takes it out into the field for the first time.</div>
+      </div>
+    </div>
+
+    <!-- Tribe 6 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="tribe-num">06</span>
+          <h3 class="tribe-name">Bulk Gift-List Buyer</h3>
+        </div>
+        <span class="badge badge-moderate">Moderate</span>
+      </div>
+      <div class="field">
+        <div class="field-label">Priority</div>
+        <div class="field-value">5 — A real, independently-repeating pattern, but thinner and more transactional than the other gifting tribe.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Description</div>
+        <div class="field-value">Doesn't shop for one gift at a time. Once they've decided a product is good, they buy several at once to cover multiple people on their list — a spouse, kids, in-laws — in a single order. Highly value-driven: a multi-pack deal is the entire reason the decision tips from "maybe" to "yes." The satisfaction comes from solving several gifting obligations in one efficient move.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sentence Test</div>
+        <div class="quote-block">"If I'm going to buy one for somebody, I might as well get enough for the whole family while the deal's good."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Cognitive Heuristics</div>
+        <div class="field-value">Anchoring — showing the per-knife price drop at higher quantities reframes the larger total as the smart choice, not the expensive one. Social Proof — seeing other people buy in multiples for their own extended families validates that bulk-buying this specific product is sensible, not excessive.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Copy Archetype</div>
+        <div class="field-value">The Educator — walking through exactly how a multi-pack covers a specific list of people makes the math and the logic visible, which is what this value-driven buyer responds to.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Sophistication Level</div>
+        <div class="field-value">Level 1 — Direct Claim. This buyer doesn't need a mechanism story; they need a plain, confident statement of value: more knives, lower price per knife, one easy order.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Emotional Triggers</div>
+        <div class="field-value">Satisfaction of crossing several names off a list at once. Pride in getting a smart deal instead of overpaying. Relief at not having to gift-shop separately, multiple times.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Micro-Moments</div>
+        <div class="field-value">Sitting down to plan who needs a gift and realizing several people overlap. Comparing the per-unit price of a multi-pack against buying single items separately. Finishing one big order instead of several smaller, scattered ones.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>MATSATO OG</span>
+    <span>TRIBE RESEARCH · V2</span>
+  </footer>
+
+</div>
+</body>
+</html>
